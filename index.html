@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendario Interactivo</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="calendar-wrapper">
+            <div class="calendar-header">
+                <button class="nav-btn" id="prevMonth">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <div class="month-year">
+                    <h1 id="monthYear">Enero 2024</h1>
+                </div>
+                <button class="nav-btn" id="nextMonth">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+
+            <div class="calendar">
+                <div class="weekdays">
+                    <div class="weekday">Lun</div>
+                    <div class="weekday">Mar</div>
+                    <div class="weekday">Mié</div>
+                    <div class="weekday">Jue</div>
+                    <div class="weekday">Vie</div>
+                    <div class="weekday">Sáb</div>
+                    <div class="weekday">Dom</div>
+                </div>
+                <div class="days" id="daysContainer">
+                    <!-- Los días se generarán dinámicamente con JavaScript -->
+                </div>
+            </div>
+            
+            <div class="calendar-footer">
+                <div class="mode-selector">
+                    <h3>Modo de Selección:</h3>
+                    <div class="mode-buttons">
+                        <button class="mode-btn active" id="multiSelectMode">
+                            <i class="fas fa-hand-pointer"></i>
+                            Selección Múltiple
+                        </button>
+                        <button class="mode-btn" id="rangeSelectMode">
+                            <i class="fas fa-calendar-alt"></i>
+                            Selección por Rango
+                        </button>
+                        <button class="mode-btn" id="workSelectMode">
+                            <i class="fas fa-briefcase"></i>
+                            Modo Trabajo
+                        </button>
+                    </div>
+                </div>
+
+                <div class="selected-dates">
+                    <div id="multiModeInfo" class="selection-info active">
+                        <h3>Días Seleccionados:</h3>
+                        <div id="selectedDatesList" class="selected-list">
+                            <span class="no-selection">Ningún día seleccionado</span>
+                        </div>
+                    </div>
+                    
+                    <div id="rangeModeInfo" class="selection-info">
+                        <h3>Rango Seleccionado:</h3>
+                        <div class="range-info">
+                            <div class="range-dates">
+                                <div class="range-date">
+                                    <span class="range-label">📅 Inicio:</span>
+                                    <span id="startDate" class="date-display">No seleccionado</span>
+                                </div>
+                                <div class="range-date">
+                                    <span class="range-label">🏁 Fin:</span>
+                                    <span id="endDate" class="date-display">No seleccionado</span>
+                                </div>
+                            </div>
+                            <div class="days-counter">
+                                <div class="counter-display">
+                                    <span class="counter-label">📊 Días transcurridos:</span>
+                                    <span id="daysDifference" class="counter-value">0</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="workModeInfo" class="selection-info">
+                        <h3>Gestión de Trabajo:</h3>
+                        
+                        <div class="work-controls">
+                            <div class="day-type-selector">
+                                <h4>Tipo de Día Actual:</h4>
+                                <div class="type-buttons">
+                                    <button class="type-btn active" id="restDayType">
+                                        <i class="fas fa-bed"></i>
+                                        Descanso (x400)
+                                    </button>
+                                    <button class="type-btn" id="workDayType">
+                                        <i class="fas fa-briefcase"></i>
+                                        Trabajo (x200)
+                                    </button>
+                                    <button class="type-btn" id="advanceDayType">
+                                        <i class="fas fa-rocket"></i>
+                                        Adelanto
+                                    </button>
+                                    <button class="type-btn" id="paymentDayType">
+                                        <i class="fas fa-money-bill-wave"></i>
+                                        Abono/Pago
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="value-controls">
+                                <div class="advance-value-control">
+                                    <label for="advanceValue">Valor Adelanto:</label>
+                                    <div class="value-input-group">
+                                        <span class="currency-symbol">$</span>
+                                        <input type="number" id="advanceValue" value="300" min="1" step="1">
+                                    </div>
+                                </div>
+
+                                <div class="payment-value-control">
+                                    <label for="paymentValue">Valor Abono:</label>
+                                    <div class="value-input-group">
+                                        <span class="currency-symbol">$</span>
+                                        <input type="number" id="paymentValue" value="1500" min="1" step="1">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="work-summary">
+                            <div class="work-stats">
+                                <div class="stat-card rest-card">
+                                    <div class="stat-icon">🛏️</div>
+                                    <div class="stat-info">
+                                        <span class="stat-label">Días Descanso</span>
+                                        <span id="restDaysCount" class="stat-value">0</span>
+                                        <span class="stat-calc">0 × $400 = $<span id="restTotal">0</span></span>
+                                    </div>
+                                </div>
+
+                                <div class="stat-card work-card">
+                                    <div class="stat-icon">💼</div>
+                                    <div class="stat-info">
+                                        <span class="stat-label">Días Trabajo</span>
+                                        <span id="workDaysCount" class="stat-value">0</span>
+                                        <span class="stat-calc">0 × $200 = $<span id="workTotal">0</span></span>
+                                    </div>
+                                </div>
+
+                                <div class="stat-card advance-card">
+                                    <div class="stat-icon">🚀</div>
+                                    <div class="stat-info">
+                                        <span class="stat-label">Días Adelanto</span>
+                                        <span id="advanceDaysCount" class="stat-value">0</span>
+                                        <span class="stat-calc">0 × $<span id="advanceRate">300</span> = $<span id="advanceTotal">0</span></span>
+                                    </div>
+                                </div>
+
+                                <div class="stat-card payment-card">
+                                    <div class="stat-icon">💰</div>
+                                    <div class="stat-info">
+                                        <span class="stat-label">Abonos Recibidos</span>
+                                        <span id="paymentDaysCount" class="stat-value">0</span>
+                                        <span class="stat-calc">Total: $<span id="paymentTotal">0</span></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="total-summary">
+                                <div class="earnings-display">
+                                    <span class="earnings-label">💼 Total a Ganar:</span>
+                                    <span id="grandTotal" class="earnings-value">$0</span>
+                                </div>
+                                <div class="payments-display">
+                                    <span class="payments-label">💰 Abonos Recibidos:</span>
+                                    <span id="totalPayments" class="payments-value">$0</span>
+                                </div>
+                                <div class="balance-display">
+                                    <span class="balance-label">📊 Balance Final:</span>
+                                    <span id="finalBalance" class="balance-value">$0</span>
+                                </div>
+                            </div>
+
+                            <div class="work-legend">
+                                <h4>Leyenda de Colores:</h4>
+                                <div class="legend-items">
+                                    <div class="legend-item">
+                                        <div class="legend-color rest-color"></div>
+                                        <span>Descanso - $400/día</span>
+                                    </div>
+                                    <div class="legend-item">
+                                        <div class="legend-color work-color"></div>
+                                        <span>Trabajo - $200/día</span>
+                                    </div>
+                                    <div class="legend-item">
+                                        <div class="legend-color advance-color"></div>
+                                        <span>Adelanto - Valor personalizable</span>
+                                    </div>
+                                    <div class="legend-item">
+                                        <div class="legend-color payment-color"></div>
+                                        <span>Abono/Pago - Dinero recibido</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="calendar-actions">
+                    <button class="action-btn clear-btn" id="clearSelection">
+                        <i class="fas fa-eraser"></i>
+                        Limpiar Selección
+                    </button>
+                    <button class="action-btn today-btn" id="goToToday">
+                        <i class="fas fa-calendar-day"></i>
+                        Ir a Hoy
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/calendar.js"></script>
+</body>
+</html>.
+<!--vim:tw=75:sw=1:
