@@ -21,7 +21,7 @@ body {
 }
 
 .calendar-wrapper {
-    background: rgba(255, 255, 255, 0.95);
+    background: rgba(10, 25, 20, 0.95);
     backdrop-filter: blur(20px);
     border-radius: 20px;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
@@ -41,7 +41,7 @@ body {
 .month-year h1 {
     font-size: 2.2rem;
     font-weight: 600;
-    color: #2d3748;
+    color: #9d3748;
     text-align: center;
     min-width: 200px;
 }
@@ -74,10 +74,10 @@ body {
 
 /* Calendario principal */
 .calendar {
-    background: #ffffff;
+    background: #232323;
     border-radius: 16px;
     padding: 20px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 10px 25px rgba(200, 200, 200, 0.05);
 }
 
 .weekdays {
@@ -671,11 +671,11 @@ body {
 }
 
 .type-btn.active#restDayType {
-    background: linear-gradient(135deg, #9f7aea 0%, #805ad5 100%);
+    background: linear-gradient(135deg, #9f4aea 0%, #805ad5 100%);
 }
 
 .type-btn.active#workDayType {
-    background: linear-gradient(135deg, #4299e1 0%, #3182ce 100%);
+    background: linear-gradient(135deg, #4299e1 0%, #31b2ce 100%);
 }
 
 .type-btn.active#advanceDayType {
@@ -683,7 +683,7 @@ body {
 }
 
 .type-btn.active#paymentDayType {
-    background: linear-gradient(135deg, #b794f6 0%, #9f7aea 100%);
+    background: linear-gradient(135deg, #b7f4f6 0%, #9ffaea 100%);
 }
 
 /* Controles de valores */
@@ -911,11 +911,11 @@ body {
 }
 
 .rest-color {
-    background: linear-gradient(135deg, #9f7aea 0%, #805ad5 100%);
+    background: linear-gradient(135deg, #9faaea 0%, #806ad5 100%);
 }
 
 .work-color {
-    background: linear-gradient(135deg, #4299e1 0%, #3182ce 100%);
+    background: linear-gradient(135deg, #4299e1 0%, #3172ce 100%);
 }
 
 .advance-color {
@@ -923,12 +923,12 @@ body {
 }
 
 .payment-color {
-    background: linear-gradient(135deg, #b794f6 0%, #9f7aea 100%);
+    background: linear-gradient(135deg, #f7a4f6 0%, #df9aea 100%);
 }
 
 /* Estilos para los días en modo trabajo */
 .day.rest-day {
-    background: linear-gradient(135deg, #9f7aea 0%, #805ad5 100%) !important;
+    background: linear-gradient(135deg, #3f5aea 0%, #407ad5 100%) !important;
     color: white !important;
     font-weight: 700;
     position: relative;

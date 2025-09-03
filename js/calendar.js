@@ -9,8 +9,8 @@ class InteractiveCalendar {
         // Modo trabajo
         this.currentDayType = 'rest'; // 'rest', 'work', 'advance', 'payment'
         this.workDays = new Map(); // dateString -> {type: 'rest'|'work'|'advance'|'payment', value?: number}
-        this.advanceValue = 300;
-        this.paymentValue = 1500;
+        this.advanceValue = 0;
+        this.paymentValue = 0;
         
         // Datos predeterminados
         this.initializePredefinedData();
@@ -37,7 +37,7 @@ class InteractiveCalendar {
         
         const payments = [
             { date: '2025-05-11', amount: 1800 },
-            { date: '2025-05-25', amount: 1900 },
+            { date: '2025-05-12', amount: 1900 },
             { date: '2025-07-16', amount: 3600 },
             { date: '2025-07-30', amount: 3600 },
             { date: '2025-08-10', amount: 3600 },
@@ -455,9 +455,9 @@ class InteractiveCalendar {
             }
         });
 
-        const restTotal = restDays * 400;
+        const restTotal = restDays * 600;
         const workTotal = workDays * 200;
-        const earningsTotal = restTotal + workTotal + advanceTotal;
+        const earningsTotal = restTotal + workTotal;
         const finalBalance = earningsTotal - paymentTotal;
 
         return {
@@ -541,7 +541,7 @@ class InteractiveCalendar {
         const calcUpdates = [
             {
                 selector: '.rest-card .stat-calc',
-                html: `${totals.restDays} × $400 = $<span>${totals.restTotal.toLocaleString()}</span>`
+                html: `${totals.restDays} × $600 = $<span>${totals.restTotal.toLocaleString()}</span>`
             },
             {
                 selector: '.work-card .stat-calc',
